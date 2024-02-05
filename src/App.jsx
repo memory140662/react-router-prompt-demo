@@ -4,6 +4,10 @@ import Home from './components/Home'
 import History from './components/History'
 import Profile from './components/Profile'
 import { Provider } from './context/main'
+import { Modal } from 'antd'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
+
+const { confirm } = Modal
 
 const LinkList = () => (
    <div style={{ margin: '15px' }}>
@@ -32,15 +36,14 @@ function App() {
       <>
          <HashRouter
             getUserConfirmation={(message, callback) => {
-               console.log(message)
-               // Custom confirm component
-               const allow = window.confirm(message)
-
-               if (allow) {
-                  setLeaveConfirm(false)
-               }
-
-               callback(allow)
+               confirm({
+                  title: message,
+                  icon: <ExclamationCircleOutlined />,
+                  onOk() {
+                     setLeaveConfirm(false)
+                     callback(true)
+                  },
+               })
             }}
          >
             <LinkList />

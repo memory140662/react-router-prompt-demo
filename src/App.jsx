@@ -34,25 +34,13 @@ function App() {
 
    return (
       <>
-         <HashRouter
-            getUserConfirmation={(message, callback) => {
-               confirm({
-                  title: message,
-                  icon: <ExclamationCircleOutlined />,
-                  onOk() {
-                     setLeaveConfirm(false)
-                     callback(true)
-                  },
-               })
-            }}
-         >
+         <HashRouter>
             <LinkList />
             <Provider value={{ setLeaveConfirm }}>
                <Switch>
                   <Routes />
                </Switch>
             </Provider>
-            <Prompt when={isLeaveConfirm} message='Are you sure you want to leave?' />
          </HashRouter>
       </>
    )
